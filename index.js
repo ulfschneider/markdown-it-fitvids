@@ -16,14 +16,14 @@ function fitHtmlElements(md, fitOptions) {
   const blockRenderer = md.renderer.rules.html_block;
   const elementRenderer = function (tokens, idx, options, env, self) {
     try {
-      let token = tokens[idx];
-      let $ = cheerio.load(token.content);
-      let elements = $(fitOptions.fitSelector);
+      const token = tokens[idx];
+      const $ = cheerio.load(token.content);
+      const elements = $(fitOptions.fitSelector);
 
       if (elements.length) {
         elements.each(function () {
-          let width = parseInt($(this).attr("width"));
-          let height = parseInt($(this).attr("height"));
+          const width = parseInt(Number($(this).attr("width")));
+          const height = parseInt(Number($(this).attr("height")));
           if (width > 0 && height > 0) {
             let style = $(this).attr("style");
             style = styleAspectRatio(style, width, height);
@@ -42,7 +42,7 @@ function fitHtmlElements(md, fitOptions) {
   };
 
   md.renderer.rules.html_block = function (tokens, idx, options, env, self) {
-    let html = elementRenderer(tokens, idx, options, env, self);
+    const html = elementRenderer(tokens, idx, options, env, self);
     if (html) {
       return html;
     } else {
