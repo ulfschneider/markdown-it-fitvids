@@ -28,8 +28,8 @@ function fitHtmlElements(md, fitOptions) {
             let style = $(this).attr("style");
             style = styleAspectRatio(style, width, height);
             style += " max-width:100%; height:auto;";
-            if (fitOptions.style) {
-              style += fitOptions.style;
+            if (fitOptions.applyStyle) {
+              style += fitOptions.applyStyle;
             }
             $(this).attr("style", style);
           }

@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-fitvids",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "A markdown-it plugin to make iframes and videos responsive by setting aspect-ratio.",
   "main": "index.js",
