@@ -24,10 +24,19 @@ function fitHtmlElements(md, fitOptions) {
         elements.each(function () {
           const width = parseInt(Number($(this).attr("width")));
           const height = parseInt(Number($(this).attr("height")));
-          if (width > 0 && height > 0) {
-            let style = $(this).attr("style");
-            style = styleAspectRatio(style, width, height);
-            style += " max-width:100%; height:auto;";
+          let style = $(this).attr("style");
+          const hasAspectRatio = style && /aspect-ratio/i.test(style);
+
+          if ((width > 0 && height > 0) || hasAspectRatio) {
+            if (!hasAspectRatio) {
+              style = styleAspectRatio(style, width, height);
+            }
+            if (!fitOptions.minimalStyle || !fitOptions.applyClass) {
+              style += " max-width:100%; height:auto;";
+            }
+            if (fitOptions.applyClass) {
+              $(this).addClass(fitOptions.applyClass);
+            }
             if (fitOptions.applyStyle) {
               style += fitOptions.applyStyle;
             }
@@ -53,7 +62,12 @@ function fitHtmlElements(md, fitOptions) {
 
 export default function (md, fitOptions) {
   fitOptions = Object.assign(
-    { fitSelector: "iframe,video", applyStyle: "" },
+    {
+      fitSelector: "iframe,video",
+      applyStyle: "",
+      applyClass: "",
+      minimalStyle: false,
+    },
     fitOptions,
   );
   fitHtmlElements(md, fitOptions);
